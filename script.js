@@ -1,4 +1,6 @@
 class ScrollHor {
+    throttle = 2;
+
     container = null;
     scrollhorContainer = null;
     scrollhorContainerOffsetTop = null;
@@ -47,15 +49,15 @@ class ScrollHor {
                     this.scrollhorInner.style.top = '0';
                     this.currentMode = 3;
                 }
-                this.container.scrollLeft = windowScrollTop - this.scrollhorContainerOffsetTop;
+                this.container.scrollLeft =
+                    (windowScrollTop - this.scrollhorContainerOffsetTop) / this.throttle;
             }
         });
     }
 
     update() {
         this.scrollhorContainer.querySelector('.scrollhor__placeholder').style.height =
-            this.container.children[0].offsetWidth -
-            this.container.offsetWidth +
+            (this.container.children[0].offsetWidth - this.container.offsetWidth) * this.throttle +
             this.container.offsetHeight +
             'px';
         this.scrollhorContainer.querySelector('.scrollhor__placeholder').style.width = '100%';
